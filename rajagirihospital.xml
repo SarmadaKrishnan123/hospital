@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3bd54196-9f9a-48b7-b1f6-64ad67652254" >
+		<http:listener-connection host="localhost" port="8087" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="d58cb1c4-6150-45cc-9eba-e966c85f81c3" >
+		<http:request-connection host="localhost" port="8087" />
+	</http:request-config>
+	<flow name="rajagirihospitalFlow" doc:id="0d586953-4f05-463a-91dd-e04bc901cda7" >
+		<http:listener doc:name="Listener" doc:id="c2b875b9-4b2e-471d-bfa8-5cccab404992" config-ref="HTTP_Listener_config" path="/h1"/>
+		<http:request method="GET" doc:name="Request" doc:id="b44e814e-38af-4044-b856-b956eb2e87f2" config-ref="HTTP_Request_configuration" path="/Rajagiri">
+			<http:body ><![CDATA[#[{
+	"hospital": "Rajagiri"
+}]]]></http:body>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="63d17696-e8ea-48fa-a0c5-6b5a346e04d1" message='#["done"]'/>
+	</flow>
+</mule>
